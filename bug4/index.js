@@ -32,12 +32,19 @@ document.addEventListener("DOMContentLoaded", function () {
 	document.getElementById('transactions').innerHTML = renderTransactions(fullTransactionData);
 
 	document.getElementById('search-input').addEventListener('input', function (e) {
-		var searchString = e.target.value;
+		var rawString = e.target.value;
+// convert everything to lower letter
+		var searchString = rawString.toLowerCase();
+		var lowerName = transaction.name.toLowerCase();
+		var lowerFor = transaction.for.toLowerCase();
+		var lowerDate = transaction.date.toLowerCase();
+		var lowerAmount = transaction.amount.toLowerCase();
+
 		var filteredData = fullTransactionData.filter(function (transaction) {
-			var foundInName = transaction.name.indexOf(searchString) > -1;
-			var foundInFor = transaction.for.indexOf(searchString) > -1;
-			var foundInDate = transaction.date.indexOf(searchString) > -1;
-			var foundInAmount = transaction.amount.indexOf(searchString) > -1;
+			var foundInName = lowerName.indexOf(searchString) > -1;
+			var foundInFor = lowerFor.indexOf(searchString) > -1;
+			var foundInDate = lowerDate.indexOf(searchString) > -1;
+			var foundInAmount = lowerAmount.indexOf(searchString) > -1;
 			return foundInName || foundInFor || foundInDate || foundInAmount;
 		});
 
